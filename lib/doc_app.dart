@@ -30,4 +30,4 @@ class DocApp extends StatelessWidget {
 /// Github branches
 /// development      -   Staging      - Production
 ///
-/// development - BugFix/nameBug , Features/nameFeature , hotFix/nameHotFix -> pr Pull Reuqest 
+/// development - BugFix/nameBug , Features/nameFeature , hotFix/nameHotFix -> pr Pull Requests
