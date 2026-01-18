@@ -2,7 +2,12 @@ import 'package:advance_flutter_project/core/helpers/spacing.dart';
 import 'package:advance_flutter_project/core/theming/styles.dart';
 import 'package:advance_flutter_project/core/widgets/app_text_button.dart';
 import 'package:advance_flutter_project/core/widgets/app_text_form_field.dart';
+import 'package:advance_flutter_project/features/login/data/models/login_request_body.dart';
+import 'package:advance_flutter_project/features/login/logic/cubit/login_cubit.dart';
+import 'package:advance_flutter_project/features/login/ui/widgets/email_and_password.dart';
+import 'package:advance_flutter_project/features/login/ui/widgets/login_bloc_listener.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,9 +18,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  bool _isObsecureText = true;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,42 +39,32 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 verticalSpace(36),
 
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      AppTextFormField(hintText: 'Email'),
-                      verticalSpace(18),
-                      AppTextFormField(
-                        hintText: 'Password',
-                        isObscureText: _isObsecureText,
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isObsecureText = !_isObsecureText;
-                            });
-                          },
-                          child: Icon(
-                            _isObsecureText
-                                ? Icons.visibility_off
-                                : Icons.visibility_off,
-                          ),
-                        ),
-                      ),
-                      verticalSpace(24),
-                      Align(
-                          alignment: AlignmentDirectional.centerEnd,
-                          child: Text('Forgot Password?',
-                          style: TextStyles.font13BlueRegular,
-                          ),),
-                      verticalSpace(40),
-                      
-                      AppTextButton(buttonText: 'Login', onPressed: (){},
-                      textStyle: TextStyles.font16WhiteSemiBold,
-                      ),
+                Column(
+                  children: [
+                    const EmailAndPassword(),
+                    verticalSpace(24),
 
-                    ],
-                  ),
+                    Align(
+                      alignment: AlignmentDirectional.centerEnd,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyles.font13BlueRegular,
+                      ),
+                    ),
+                    verticalSpace(40),
+
+                    AppTextButton(
+                      buttonText: 'Login',
+                      onPressed: () {
+                        _validateThenDoLogin();
+                      },
+                      textStyle: TextStyles.font16WhiteSemiBold,
+                    ),
+                    verticalSpace(16),
+                    verticalSpace(60),
+
+                    const LoginBlocListener(),
+                  ],
                 ),
               ],
             ),
@@ -80,5 +72,16 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _validateThenDoLogin() {
+    if (context.read<LoginCubit>().formKey.currentState!.validate()) {
+      context.read<LoginCubit>().emitLoginStates(
+        LoginRequestBody(
+          email: context.read<LoginCubit>().emailController.text,
+          password: context.read<LoginCubit>().passwordController.text,
+        ),
+      );
+    }
   }
 }

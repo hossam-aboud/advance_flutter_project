@@ -17,12 +17,16 @@ final Widget? suffixIcon;
 final Widget? prefixIcon;
 final String hintText;
 final Color? backGroundColor;
+final TextEditingController? controller;
+final Function(String?) validator ;
 
-  const AppTextFormField({super.key, this.contentPadding, this.focusedBorder, this.enabledBorder, this.inputTextStyle, this.hintStyle, this.isObscureText, this.suffixIcon, this.prefixIcon, required this.hintText, this.backGroundColor});
+  const AppTextFormField({super.key, this.contentPadding, this.focusedBorder, this.enabledBorder, this.inputTextStyle, this.hintStyle, this.isObscureText, this.suffixIcon, this.prefixIcon, required this.hintText, this.backGroundColor,  this.controller, required this.validator});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      validator: (value) => validator(value),
       decoration: InputDecoration(
         isDense:  true ,
         contentPadding: contentPadding ??  EdgeInsetsDirectional.symmetric(
@@ -42,6 +46,20 @@ final Color? backGroundColor;
             width: 1.3 ,
           ),
           borderRadius: BorderRadius.circular(16.0),
+        ),
+        errorBorder: OutlineInputBorder(
+            borderSide:   BorderSide(
+              color: Colors.red,
+              width: 1.3 ,
+            ),
+          borderRadius: BorderRadius.circular(16.0)
+        ),
+        focusedErrorBorder:  OutlineInputBorder(
+            borderSide:   BorderSide(
+              color: Colors.red,
+              width: 1.3 ,
+            ),
+            borderRadius: BorderRadius.circular(16.0)
         ),
         hintStyle: hintStyle ??  TextStyles.font14LightGrayRegular,
         hintText: hintText,
