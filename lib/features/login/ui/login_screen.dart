@@ -77,10 +77,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void _validateThenDoLogin() {
     if (context.read<LoginCubit>().formKey.currentState!.validate()) {
       context.read<LoginCubit>().emitLoginStates(
-        LoginRequestBody(
-          email: context.read<LoginCubit>().emailController.text,
-          password: context.read<LoginCubit>().passwordController.text,
-        ),
+        // LoginRequestBody(
+        //   email: context.read<LoginCubit>().emailController.text,
+        //   password: context.read<LoginCubit>().passwordController.text,
+        // ),
       );
     }
   }
