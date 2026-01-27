@@ -27,7 +27,7 @@ platform :android do
     android_artifact_type: "APK",
     android_artifact_path: "../build/app/outputs/apk/Production/release/app-Production-release.apk",
     testers: "hossam.vlogss@gmail.com",
-    release_notes: "First Fastlane Firebase Distribution"
+    release_notes: "Test"
   )
   end
 end
