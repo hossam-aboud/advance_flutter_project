@@ -1,0 +1,16 @@
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/splash.png
+  fullscreen: true
+
+  ## to android 12+
+  ## open figma : create new frame radius 320 , w : 640 , h 640
+  ## put the logo inside the frame
+  # create new frame w 960 , h 960
+  # put the logo frame 1 inside frame 2
+  # extract the logo with 1x
+  # put the logo image in the assets project files
+  # generate flutter _ native _ splash like below
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/android_test_logo.png
