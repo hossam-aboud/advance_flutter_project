@@ -24,7 +24,7 @@ jobs:
           channel: stable
 
       - name: Setup Ruby
-        uses: actions/setup-ruby@v3
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
