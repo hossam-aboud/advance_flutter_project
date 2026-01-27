@@ -12,16 +12,22 @@ jobs:
       - name: Checkout my repo code
         uses: actions/checkout@v3
 
-      - name: Setup up JDK 11
+      - name: Setup up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+
+      - name: Flutter Clean
+        run: flutter clean
+
+      - name: Get Flutter Dependencies
+        run: flutter pub get
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
